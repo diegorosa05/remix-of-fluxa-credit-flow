@@ -33,11 +33,6 @@ export async function makeGatewayPDF(g: GatewayConfig, rows: GatewayRow[], brand
   const n = doc.getNumberOfPages();
   for (let p = 1; p <= n; p++) {
     doc.setPage(p);
-    // Diagonal watermark on every page, drawn last so it sits above the content.
-    doc.saveGraphicsState(); doc.setGState(new (doc as unknown as { GState: new (o: object) => object }).GState({ opacity: 0.16 }));
-    doc.setTextColor(...c.mark); doc.setFont('helvetica', 'bold'); doc.setFontSize(30);
-    doc.text('DEMONSTRAÇÃO — NÃO É REAL', 105, 160, { align: 'center', angle: 35 });
-    doc.restoreGraphicsState();
     doc.setTextColor(...c.mark); doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.text(GATEWAY_NOTICE, 10, 288);
     doc.setTextColor(...c.muted); doc.setFont('helvetica', 'normal'); doc.text(`Página ${p} de ${n}`, 200, 288, { align: 'right' });
   }
