@@ -1,4 +1,4 @@
-export const NICHE_IDS = ['servicos', 'comercio', 'tecnologia', 'informatica', 'alimentacao', 'construcao', 'saude', 'automotivo'] as const;
+export const NICHE_IDS = ['servicos', 'comercio', 'tecnologia', 'informatica', 'alimentacao', 'construcao', 'saude', 'automotivo', 'consultoria'] as const;
 export type NicheId = typeof NICHE_IDS[number];
 type Activity = { operation: string; category: string; party: string };
 type Niche = { label: string; income: Activity[]; expenses: Activity[] };
@@ -23,6 +23,7 @@ export const NICHES: Record<NicheId, Niche> = {
   alimentacao: { label: 'Alimentação e restaurantes', income: [sale('Venda de refeições', 'Refeições'), sale('Pedido de delivery', 'Delivery'), sale('Serviço de buffet', 'Buffet')], expenses: expenses(purchase('Compra de ingredientes', 'Ingredientes'), purchase('Embalagens de delivery', 'Embalagens'), purchase('Gás de cozinha', 'Gás')) },
   construcao: { label: 'Construção e reformas', income: [sale('Serviço de reforma', 'Reformas'), sale('Etapa de obra', 'Obras'), sale('Projeto de construção', 'Projetos')], expenses: expenses(purchase('Compra de materiais de obra', 'Materiais'), purchase('Locação de equipamentos', 'Equipamentos'), purchase('Mão de obra terceirizada', 'Terceirização')) },
   saude: { label: 'Saúde e clínicas', income: [sale('Consulta clínica', 'Consultas'), sale('Procedimento clínico', 'Procedimentos'), sale('Exame clínico', 'Exames')], expenses: expenses(purchase('Compra de insumos clínicos', 'Insumos'), purchase('Manutenção de equipamento', 'Manutenção'), purchase('Coleta de resíduos clínicos', 'Resíduos')) },
+  consultoria: { label: 'Consultoria financeira e tributária', income: [sale('Consultoria tributária', 'Tributário'), sale('Planejamento financeiro', 'Financeiro'), sale('Revisão fiscal', 'Fiscal')], expenses: expenses(purchase('Software de gestão fiscal', 'Software'), purchase('Certificado digital', 'Certificação')) },
   automotivo: { label: 'Oficina e autopeças', income: [sale('Reparo de veículo', 'Reparos'), sale('Venda de autopeças', 'Autopeças'), sale('Revisão de veículo', 'Revisões')], expenses: expenses(purchase('Compra de autopeças', 'Autopeças'), purchase('Compra de lubrificantes', 'Lubrificantes'), purchase('Manutenção de ferramentas', 'Ferramentas')) },
 };
 
