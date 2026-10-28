@@ -16,3 +16,4 @@
 - Share statement-only date and amount formatters between the screen statement and PDF so the reference-style presentation never changes simulation calculations.
 - Keep business-niche activity catalogs in one browser-safe module used by the selector and simulation generator; niche selection changes transaction context, not financial targets or calculations.
 - Render statement previews on a fixed A4-proportioned canvas with horizontal scrolling on narrow screens; keep matching PDF geometry so screen width never reflows the document layout.
+- Gateway statements (src/lib/gateway.ts) always carry the fixed non-real demonstration watermark on screen and every PDF page; never make it optional, because the output must not pass as a real document.
