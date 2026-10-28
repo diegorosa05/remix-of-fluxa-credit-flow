@@ -53,7 +53,7 @@ function Gateway() {
         {active && <Button type="button" variant="outline" className="w-full" disabled={exporting} onClick={exportPDF}><Download />{exporting ? 'Exportando…' : 'Baixar PDF'}</Button>}
       </form>
       <div className="statement-viewport">{active && t ? <div className="gw-doc">
-        <div className="gw-watermark" aria-hidden>{GATEWAY_NOTICE}</div>
+        <div className="gw-watermark" aria-hidden>{["a","b","c"].map(k => <span key={k}>DEMONSTRAÇÃO — NÃO É REAL</span>)}</div>
         <div className="gw-hero"><div><span className="gw-chip"><Wallet size={12} />Extrato de recebimentos</span><h2>{active.company}</h2><p>{MONTHS[active.month]} de {active.year} · {NICHES[active.profile].label}</p></div><div className="text-right"><small>Saldo disponível</small><strong>{money(t.final)}</strong></div></div>
         <div className="gw-cards"><div><small>Saldo inicial</small><b>{money(active.initial)}</b></div><div><small>Vendas ({t.count})</small><b className="gw-in">+ {money(t.sales)}</b></div><div><small>Saques Pix</small><b className="gw-out">− {money(t.withdrawals)}</b></div></div>
         <ul className="gw-list">{rows.map(r => <li key={r.id}><span className={`gw-icon ${r.kind === 'sale' ? 'gw-icon-in' : 'gw-icon-out'}`}>{r.kind === 'sale' ? <ArrowDownLeft size={14} /> : <ArrowUpRight size={14} />}</span><div className="min-w-0 flex-1"><b>{r.title}</b><small>{r.detail}</small></div><div className="text-right"><b className={r.kind === 'sale' ? 'gw-in' : 'gw-out'}>{r.kind === 'sale' ? '+ ' : '− '}{money(r.amount)}</b><small>{dateLabel(r.date)} {r.time} · saldo {money(r.balance)}</small></div></li>)}</ul>
