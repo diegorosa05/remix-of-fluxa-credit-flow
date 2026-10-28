@@ -12,7 +12,7 @@ export const gatewaySchema = z.object({
   initial: cents,
   sales: cents.refine(v => v > 0, 'Informe o total de vendas.'),
   withdrawals: cents,
-  salesCount: z.number().int().min(1).max(400),
+  salesCount: z.number().int().min(1).max(100_000),
   withdrawalCount: z.number().int().min(0).max(60),
   profile: z.enum([...NICHE_IDS], { errorMap: () => ({ message: 'Escolha o nicho da empresa.' }) }),
 }).superRefine((c, ctx) => {
