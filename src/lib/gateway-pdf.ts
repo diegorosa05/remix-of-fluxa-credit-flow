@@ -7,14 +7,17 @@ const c = { ink: [24, 24, 32], muted: [120, 120, 135], brand: [88, 70, 230], sof
 
 export const gatewayFileName = (g: GatewayConfig) => `Gateway_DEMO_${MONTHS[g.month]?.toUpperCase()}_${g.year}_${g.company.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Za-z0-9]+/g, '_').replace(/^_+|_+$/g, '')}.pdf`;
 
-export async function makeGatewayPDF(g: GatewayConfig, rows: GatewayRow[]) {
+export async function makeGatewayPDF(g: GatewayConfig, rows: GatewayRow[], brandOpt: { color?: string; logo?: string } = {}) {
   const [{ jsPDF }, { default: autoTable }] = await Promise.all([import('jspdf'), import('jspdf-autotable')]);
   const doc = new jsPDF({ unit: 'mm', format: 'a4' });
   const t = gatewayTotals(g, rows);
   doc.setProperties({ title: `Demonstração — ${g.company}`, subject: GATEWAY_NOTICE });
-  doc.setFillColor(...c.brand); doc.roundedRect(10, 10, 190, 34, 5, 5, 'F');
-  doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(16); doc.text(g.company, 16, 22);
-  doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text(`Extrato de recebimentos · ${MONTHS[g.month]} de ${g.year} · ${NICHES[g.profile].label}`, 16, 29);
+  const hex = /^#[0-9a-f]{6}$/i.test(brandOpt.color ?? '') ? brandOpt.color as string : '#5846e6';
+  const brand = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16)) as [number, number, number];
+  doc.setFillColor(...brand); doc.roundedRect(10, 10, 190, 34, 5, 5, 'F');
+  doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(16); doc.text(g.company, 16, brandOpt.logo ? 30 : 22);
+  if (brandOpt.logo) { try { const p = doc.getImageProperties(brandOpt.logo); const h = 8, w = Math.min(40, (p.width / p.height) * h); doc.setFillColor(255, 255, 255); doc.roundedRect(15, 12.5, w + 2, h + 2, 1.5, 1.5, 'F'); doc.addImage(brandOpt.logo, 16, 13.5, w, h); } catch { /* logo inválida é ignorada */ } }
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text(`Extrato de recebimentos · ${MONTHS[g.month]} de ${g.year} · ${NICHES[g.profile].label}`, 16, brandOpt.logo ? 37 : 29);
   doc.setFontSize(8); doc.text('Saldo disponível', 194, 20, { align: 'right' }); doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.text(money(t.final), 194, 28, { align: 'right' });
   const cards: [string, string, readonly number[]][] = [['Saldo inicial', money(g.initial), c.ink], [`Vendas (${t.count})`, `+ ${money(t.sales)}`, c.in], ['Saques Pix', `- ${money(t.withdrawals)}`, c.out]];
   cards.forEach(([l, v, col], i) => { const x = 10 + i * 64; doc.setFillColor(...c.soft); doc.roundedRect(x, 49, 62, 17, 3, 3, 'F'); doc.setTextColor(...c.muted); doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.text(l, x + 5, 56); doc.setTextColor(col[0] ?? 0, col[1] ?? 0, col[2] ?? 0); doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text(v, x + 5, 62.5); });
