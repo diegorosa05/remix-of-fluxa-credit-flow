@@ -1,0 +1,13 @@
+# financeiro Fluxa
+- [x] Aplicar identidade visual da Fluxa Crédito.
+- [x] Implementar metas, geração em centavos, continuidade e edição explícita.
+- [x] Exportar PDF A4 selecionável com identificação em todas as páginas.
+- [x] Verificar regras, fluxo completo e PDF visualmente.
+- [x] Aplicar o layout de extrato enviado na prévia e PDF, com faixas superior e inferior e identidade Fluxa.
+- [x] Verificar o novo extrato e PDF multipágina: 600 lançamentos, avisos em 21 páginas e revisão visual sem cortes; aguardar carregamento das faixas corrigiu a captura inicial.
+- [x] Exigir seleção de nicho e gerar receitas e despesas específicas, incluindo TI de computadores e peças.
+- [x] Testar nichos, integridade financeira e geração na tela.
+- [x] Ajustar margens, fonte, colunas e densidade do extrato à referência image-5.png na prévia e no PDF.
+- [x] Verificar geração e exportação após os ajustes de apresentação: testes passando, PDFs gerados e identificação em todas as 12 páginas de maior volume.
+- [x] Apresentar lançamentos em maiúsculas e no estilo conciso da referência, preservando dados   s e identificação de  .
+- [x] Usar as novas faixas enviadas no topo e rodapé, mantendo a marca Fluxa no lugar do logo bancário.
