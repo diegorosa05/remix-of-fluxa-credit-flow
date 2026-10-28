@@ -68,7 +68,7 @@ function Index() {
   return <>
     <header className="app-header no-print"><div className="page-width flex h-full items-center justify-between gap-4">
       <div className="flex items-center gap-7"><img src={logo.url} alt="Fluxa Crédito" className="brand-logo" /><span className="hidden border-l border-border pl-7 text-xs text-muted-foreground sm:block">Ferramentas financeiras</span></div>
-      <div className="flex items-center gap-5"><span className="hidden items-center gap-2 text-[11px] text-muted-foreground md:flex"><span className="size-1.5 rounded-full bg-success" />Ambiente de  </span><Link to="/configuracoes"><Button variant="ghost" size="sm"><Settings2 />Configurações</Button></Link><Button variant="ghost" size="sm" onClick={() => setHelp(true)}><CircleHelp />Ajuda</Button></div>
+      <div className="flex items-center gap-5"><span className="hidden items-center gap-2 text-[11px] text-muted-foreground md:flex"><span className="size-1.5 rounded-full bg-success" />Ambiente de  </span><Link to="/gateway"><Button variant="ghost" size="sm"><Sparkles />Extrato gateway</Button></Link><Link to="/configuracoes"><Button variant="ghost" size="sm"><Settings2 />Configurações</Button></Link><Button variant="ghost" size="sm" onClick={() => setHelp(true)}><CircleHelp />Ajuda</Button></div>
     </div></header>
     <main className="page-width pb-10">
       <div className="no-print flex items-center gap-2 pt-7 text-[10px] text-muted-foreground"><span>Ferramentas</span><ChevronRight size={11} /><span className="text-foreground"> Gerador financeiro</span></div>
